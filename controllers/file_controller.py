@@ -13,6 +13,8 @@ from services.encryption_service import (
     decrypt_file
 )
 from io import BytesIO
+from services.storage_service import save_file
+from services.auth_service import admin_required
 from flask_login import login_required, current_user
 from services.audit_service import log_action
 from werkzeug.utils import secure_filename
@@ -91,7 +93,10 @@ def upload():
                 "temp_" + filename
             )
 
-            uploaded_file.save(temporary_path)
+            save_file(
+                uploaded_file,
+                temporary_path
+            )
 
             encrypt_file(
                 temporary_path,
@@ -104,7 +109,10 @@ def upload():
 
         else:
 
-            uploaded_file.save(storage_path)
+            save_file(
+                uploaded_file,
+                storage_path
+            )
 
         # Save metadata in PostgreSQL
         new_file = File(
@@ -195,6 +203,7 @@ def download(file_id):
 
 @file_bp.route("/audit-logs")
 @login_required
+@admin_required
 def audit_logs():
 
     logs = AuditLog.query.order_by(

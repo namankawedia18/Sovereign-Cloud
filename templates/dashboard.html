@@ -27,9 +27,13 @@
 
 <br>
 
+{% if current_user.role == "admin" %}
+
 <a href="/audit-logs">
     Audit Logs
 </a>
+
+{% endif %}
 
 <br>
 
