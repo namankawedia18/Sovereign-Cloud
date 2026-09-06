@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Audit Logs</title>
+</head>
+
+<body>
+
+    <h1>Sovereign Cloud - Audit Logs</h1>
+
+    <p>
+        Complete record of file-related activities.
+    </p>
+
+    {% if logs %}
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th>Time</th>
+            <th>User ID</th>
+            <th>Action</th>
+            <th>File</th>
+            <th>Classification</th>
+            <th>Storage Region</th>
+        </tr>
+
+        {% for log in logs %}
+
+        <tr>
+
+            <td>
+                {{ log.timestamp }}
+            </td>
+
+            <td>
+                {{ log.user_id }}
+            </td>
+
+            <td>
+                {{ log.action }}
+            </td>
+
+            <td>
+                {{ log.filename }}
+            </td>
+
+            <td>
+                {{ log.classification }}
+            </td>
+
+            <td>
+                {{ log.storage_region }}
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    {% else %}
+
+    <p>No audit records found.</p>
+
+    {% endif %}
+
+    <br>
+
+    <a href="/dashboard">
+        Back to Dashboard
+    </a>
+
+</body>
+
+</html>

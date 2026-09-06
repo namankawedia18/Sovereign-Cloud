@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Upload File</title>
+</head>
+
+<body>
+
+    <h1>Upload File</h1>
+
+    <form method="POST"
+          enctype="multipart/form-data">
+
+        <label>Select File:</label>
+
+        <br><br>
+
+        <input
+            type="file"
+            name="file"
+            required
+        >
+
+        <br><br>
+
+        <label>Classification:</label>
+
+        <br><br>
+
+        <select name="classification" required>
+
+            <option value="">
+                Select Classification
+            </option>
+
+            <option value="Government">
+                Government
+            </option>
+
+            <option value="Healthcare">
+                Healthcare
+            </option>
+
+            <option value="Public">
+                Public
+            </option>
+
+        </select>
+
+        <br><br>
+
+        <button type="submit">
+            Upload
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="/dashboard">
+        Back to Dashboard
+    </a>
+
+</body>
+
+</html>
