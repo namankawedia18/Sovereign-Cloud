@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+
+  db:
+    image: postgres:17
+    container_name: sovereign-db
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: sovereign_cloud
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+
+    container_name: sovereign-app
+
+    ports:
+      - "5000:5000"
+
+    depends_on:
+      - db
+
+    environment:
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: sovereign_cloud
+      SECRET_KEY: sovereign_cloud_project_2026
+
+volumes:
+  postgres_data:
