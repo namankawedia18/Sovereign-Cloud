@@ -1,4 +1,4 @@
-"""Create users table
+docker compose exec db psql -U postgres -d sovereign_cloud"""Create users table
 
 Revision ID: 83052ed8a0d9
 Revises: 

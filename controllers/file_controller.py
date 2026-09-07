@@ -210,6 +210,11 @@ def audit_logs():
         AuditLog.timestamp.desc()
     ).all()
 
+    print("LOG COUNT =", len(logs))
+
+    for log in logs:
+        print(log.action, log.filename)
+
     return render_template(
         "audit_logs.html",
         logs=logs
