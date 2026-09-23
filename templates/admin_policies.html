@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Policies | Sovereign Cloud{% endblock %}
+
+{% block content %}
+<div class="panel">
+    <div class="section-title">
+        <h2>Storage policies</h2>
+    </div>
+
+    <form method="POST" action="/admin/policies/new" style="margin-bottom: 2rem;">
+        <div class="form-group">
+            <label class="label" for="classification">Classification</label>
+            <input class="input" type="text" id="classification" name="classification" placeholder="e.g. Finance" required>
+        </div>
+
+        <div class="form-group">
+            <label class="label" for="allowed_region">Allowed region</label>
+            <input class="input" type="text" id="allowed_region" name="allowed_region" placeholder="e.g. Mumbai" required>
+        </div>
+
+        <div class="form-group" style="display: flex; align-items: center; gap: 0.75rem;">
+            <input type="checkbox" id="encryption_required" name="encryption_required">
+            <label class="label" for="encryption_required" style="margin: 0;">Encryption required</label>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Add policy</button>
+    </form>
+
+    {% if policies %}
+    <div class="table-wrap">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Classification</th>
+                    <th>Region</th>
+                    <th>Encryption</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for policy in policies %}
+                <tr>
+                    <td>{{ policy.classification }}</td>
+                    <td>{{ policy.allowed_region }}</td>
+                    <td>{{ 'Yes' if policy.encryption_required else 'No' }}</td>
+                    <td>
+                        <form method="POST" action="{{ url_for('admin.delete_policy', policy_id=policy.id) }}">
+                            <button class="btn btn-secondary" type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state">No policies configured yet.</div>
+    {% endif %}
+</div>
+{% endblock %}

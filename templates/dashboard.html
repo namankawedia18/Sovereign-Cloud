@@ -1,45 +1,42 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dashboard</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<h1>
-    Welcome {{ user.username }}
-</h1>
+{% block title %}Dashboard | Sovereign Cloud{% endblock %}
 
-<p>
-    Role: {{ user.role }}
-</p>
+{% block content %}
+<div class="hero">
+    <h1>Welcome, {{ user.username }}</h1>
+    <p>
+        Your secure storage workspace is ready. Manage uploads, review your files, and monitor activity from one place.
+    </p>
+</div>
 
-<br>
+<div class="card-grid">
+    <div class="stat-card">
+        <span class="label">Role</span>
+        <span class="value">{{ user.role }}</span>
+    </div>
+    <div class="stat-card">
+        <span class="label">Workspace</span>
+        <span class="value">Secure</span>
+    </div>
+    <div class="stat-card">
+        <span class="label">Policy status</span>
+        <span class="value">Active</span>
+    </div>
+</div>
 
-<a href="/upload">
-    Upload File
-</a>
+<div class="panel" style="margin-top: 2rem;">
+    <div class="section-title">
+        <h2>Quick actions</h2>
+    </div>
 
-<br>
-
-<a href="/files">
-    My Files
-</a>
-
-<br>
-
-{% if current_user.role == "admin" %}
-
-<a href="/audit-logs">
-    Audit Logs
-</a>
-
-{% endif %}
-
-<br>
-
-<a href="/logout">
-    Logout
-</a>
-
-</body>
-</html>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/upload">Upload File</a>
+        <a class="btn btn-secondary" href="/files">My Files</a>
+        {% if current_user.is_authenticated and current_user.role and current_user.role|lower == "admin" %}
+        <a class="btn btn-success" href="/admin">Admin Panel</a>
+        <a class="btn btn-secondary" href="/audit-logs">Audit Logs</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,67 +1,32 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Upload File</title>
-</head>
+{% block title %}Upload File | Sovereign Cloud{% endblock %}
 
-<body>
+{% block content %}
+<div class="form-card" style="max-width: 620px; margin: 0 auto; width: 100%;">
+    <h1>Upload a file</h1>
+    <p>Select a file and assign a classification to enforce the storage policy.</p>
 
-    <h1>Upload File</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label class="label" for="file">Select file</label>
+            <input class="file-input" type="file" id="file" name="file" required>
+        </div>
 
-    <form method="POST"
-          enctype="multipart/form-data">
+        <div class="form-group">
+            <label class="label" for="classification">Classification</label>
+            <select class="select" id="classification" name="classification" required>
+                <option value="">Select Classification</option>
+                <option value="Government">Government</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Public">Public</option>
+            </select>
+        </div>
 
-        <label>Select File:</label>
-
-        <br><br>
-
-        <input
-            type="file"
-            name="file"
-            required
-        >
-
-        <br><br>
-
-        <label>Classification:</label>
-
-        <br><br>
-
-        <select name="classification" required>
-
-            <option value="">
-                Select Classification
-            </option>
-
-            <option value="Government">
-                Government
-            </option>
-
-            <option value="Healthcare">
-                Healthcare
-            </option>
-
-            <option value="Public">
-                Public
-            </option>
-
-        </select>
-
-        <br><br>
-
-        <button type="submit">
-            Upload
-        </button>
-
+        <div class="btn-row">
+            <button class="btn btn-primary" type="submit">Upload</button>
+            <a class="btn btn-secondary" href="/dashboard">Back to Dashboard</a>
+        </div>
     </form>
-
-    <br>
-
-    <a href="/dashboard">
-        Back to Dashboard
-    </a>
-
-</body>
-
-</html>
+</div>
+{% endblock %}

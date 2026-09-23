@@ -1,77 +1,44 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Audit Logs</title>
-</head>
+{% block title %}Audit Logs | Sovereign Cloud{% endblock %}
 
-<body>
+{% block content %}
+<div class="panel">
+    <div class="section-title">
+        <h2>Audit Logs</h2>
+    </div>
 
-    <h1>Sovereign Cloud - Audit Logs</h1>
-
-    <p>
-        Complete record of file-related activities.
-    </p>
+    <p class="muted">Complete record of file-related activity and governance actions.</p>
 
     {% if logs %}
-
-    <table border="1" cellpadding="10">
-
-        <tr>
-            <th>Time</th>
-            <th>User ID</th>
-            <th>Action</th>
-            <th>File</th>
-            <th>Classification</th>
-            <th>Storage Region</th>
-        </tr>
-
-        {% for log in logs %}
-
-        <tr>
-
-            <td>
-                {{ log.timestamp }}
-            </td>
-
-            <td>
-                {{ log.user_id }}
-            </td>
-
-            <td>
-                {{ log.action }}
-            </td>
-
-            <td>
-                {{ log.filename }}
-            </td>
-
-            <td>
-                {{ log.classification }}
-            </td>
-
-            <td>
-                {{ log.storage_region }}
-            </td>
-
-        </tr>
-
-        {% endfor %}
-
-    </table>
-
+    <div class="table-wrap">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>User ID</th>
+                    <th>Action</th>
+                    <th>File</th>
+                    <th>Classification</th>
+                    <th>Storage Region</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td>{{ log.timestamp }}</td>
+                    <td>{{ log.user_id }}</td>
+                    <td><span class="badge">{{ log.action }}</span></td>
+                    <td>{{ log.filename }}</td>
+                    <td>{{ log.classification }}</td>
+                    <td>{{ log.storage_region }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
     {% else %}
-
-    <p>No audit records found.</p>
-
+    <div class="empty-state">No audit records found.</div>
     {% endif %}
-
-    <br>
-
-    <a href="/dashboard">
-        Back to Dashboard
-    </a>
-
-</body>
-
-</html>
+</div>
+{% endblock %}

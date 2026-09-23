@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Users | Sovereign Cloud{% endblock %}
+
+{% block content %}
+<div class="panel">
+    <div class="section-title">
+        <h2>Manage users</h2>
+    </div>
+
+    <div class="table-wrap">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td><span class="badge">{{ user.role or 'user' }}</span></td>
+                    <td>
+                        {% if user.id != current_user.id %}
+                        <form method="POST" action="{{ url_for('admin.toggle_user_role', user_id=user.id) }}">
+                            <button class="btn btn-secondary" type="submit">
+                                {% if (user.role or '').lower() == 'admin' %}
+                                Demote to user
+                                {% else %}
+                                Promote to admin
+                                {% endif %}
+                            </button>
+                        </form>
+                        {% else %}
+                        <span class="muted">Current user</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

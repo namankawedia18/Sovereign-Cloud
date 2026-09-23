@@ -1,8 +1,11 @@
+import os
+
 from flask import Flask
 from config import Config
 from models.audit_log import AuditLog
 from controllers.auth_controller import auth_bp
 from controllers.file_controller import file_bp
+from controllers.admin_controller import admin_bp
 from models.policy import Policy
 from models.file import File
 from extensions import (
@@ -30,6 +33,7 @@ def create_app():
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(file_bp)
+    app.register_blueprint(admin_bp)
 
     # Home route
     @app.route("/")
@@ -49,4 +53,8 @@ app = create_app()
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(
+        host="0.0.0.0",
+        port=int(os.getenv("PORT", "5000")),
+        debug=os.getenv("FLASK_DEBUG", "false").lower() == "true",
+    )

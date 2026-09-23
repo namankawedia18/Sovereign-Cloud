@@ -1,41 +1,32 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<h2>Login</h2>
+{% block title %}Login | Sovereign Cloud{% endblock %}
 
-<form method="POST">
+{% block content %}
+<div class="auth-layout">
+    <div class="form-card">
+        <h1>Welcome back</h1>
+        <p>Sign in to access your secure cloud workspace.</p>
 
-    <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        required
-    >
+        <form method="POST">
+            <div class="form-group">
+                <label class="label" for="email">Email</label>
+                <input class="input" type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
 
-    <br><br>
+            <div class="form-group">
+                <label class="label" for="password">Password</label>
+                <input class="input" type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
 
-    <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        required
-    >
+            <button class="btn btn-primary" type="submit" style="width: 100%; margin-top: 0.5rem;">
+                Login
+            </button>
+        </form>
 
-    <br><br>
-
-    <button type="submit">
-        Login
-    </button>
-
-</form>
-
-<a href="/register">
-    Create Account
-</a>
-
-</body>
-</html>
+        <div class="form-footer">
+            Need an account? <a href="/register">Create one</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

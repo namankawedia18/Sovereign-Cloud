@@ -8,21 +8,16 @@ def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
 
-        # Check if user is logged in
         if not current_user.is_authenticated:
-            print("NOT AUTHENTICATED")
             flash("Please log in first.")
-            return redirect(url_for("login"))
+            return redirect(url_for("auth.login"))
 
-        print("ROLE =", current_user.role)
+        role = current_user.role or ""
 
-        # Check admin role
-        if current_user.role.lower() != "admin":
-            print("DENIED")
+        if role.lower() != "admin":
             flash("Admin access required.")
-            return redirect(url_for("home"))
+            return redirect(url_for("auth.dashboard"))
 
-        print("GRANTED")
         return f(*args, **kwargs)
 
     return decorated_function
